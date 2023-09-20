@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     var body: some View {
         VStack {
             VStack(spacing: 20) {
-                //            Image(systemName: "globe")
-                //                .imageScale(.large)
-                //                .foregroundColor(.accentColor)
-                //            Text("Hello, world!")
                 
                 Text("Instant Developer")
                     .fontWeight(.medium)
@@ -41,9 +38,18 @@ struct ContentView: View {
             // 留白
             Spacer()
             
-            VSignUpButtonGroup()
+            if verticalSizeClass == .compact {
+                HSignUpButtonGroup()
+            } else {
+                VSignUpButtonGroup()
+            }
         }
         .padding(.top, 30)
+        .background {
+            Image("background")
+                .resizable()
+                .ignoresSafeArea() // 全螢幕
+        }
     }
 }
 
@@ -90,4 +96,28 @@ struct VSignUpButtonGroup: View {
             .cornerRadius(30)
         }
     }
+}
+
+struct HSignUpButtonGroup: View {
+    var body: some View {
+        HStack {
+            Button {
+            } label: {
+                Text("Sign Up")
+            }
+            .frame(width: 200)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.indigo)
+            .cornerRadius(10)
+            Button {
+            } label: {
+                Text("Log In")
+            }
+            .frame(width: 200)
+            .padding()
+            .foregroundColor(.white)
+            .background(Color.gray)
+            .cornerRadius(10)
+        } }
 }
